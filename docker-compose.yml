@@ -1,0 +1,13 @@
+services:
+  load_service:
+    build: .
+    container_name: auth_service
+    networks:
+      - test_network
+    restart: unless-stopped
+    ports:
+      - "8012:8000" 
+
+networks:
+  test_network:
+    external: true
