@@ -22,7 +22,7 @@ class GoogleOAuthClient:
         self,
         code: str,
         code_verifier: str,
-        redirect_uri: str = "postmessage"
+        redirect_uri: str = "http://localhost:8501"
     ) -> dict[str, Any] | None:
         """Exchange authorization code for access and ID tokens.
         

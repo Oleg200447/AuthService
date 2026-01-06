@@ -6,7 +6,7 @@ services:
       - test_network
     restart: unless-stopped
     ports:
-      - "8012:8000" 
+      - "8012:8012" 
 
 networks:
   test_network:

@@ -71,7 +71,8 @@ def create_user_token(user_id: str, username: str, role: str = "user") -> tuple[
     token_data = {
         "sub": user_id,
         "nickname": username,
-        "role": role
+        "role": role,
+        "iss": "auth_service"
     }
     
     token = create_access_token(token_data, expires_delta)

@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     KAFKA_TOPIC_NEW_USERS: str = "new_users"
     
     # Application
-    APP_PORT: int = 8000
+    APP_PORT: int = 8012
     LOG_LEVEL: str = "INFO"
     
     model_config = SettingsConfigDict(
