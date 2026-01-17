@@ -11,7 +11,7 @@ from app.models.schemas import (
     AuthenticatedResponse,
     UserInfo,
 )
-from app.core.security import verify_password, create_user_token
+from app.core.security import verify_system_secret, create_user_token
 from app.exceptions import InvalidCredentialsException
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,7 @@ async def system_login(
         raise InvalidCredentialsException()
     
     # Step 2: Verify secret key
-    if not verify_password(request.secret_key, system_account.secret_key_hash):
+    if not verify_system_secret(request.secret_key, system_account.secret_key_hash):
         logger.warning(f"Invalid secret key for system account: {request.username}")
         raise InvalidCredentialsException()
     

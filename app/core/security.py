@@ -5,8 +5,11 @@ from jose import jwt, JWTError
 from passlib.context import CryptContext
 from app.config import settings
 
-# Password hashing context
+# Password hashing context (for regular user passwords if needed)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# System accounts password context (for long secret keys, no 72-byte limit)
+system_pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
@@ -17,6 +20,16 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against a hash."""
     return pwd_context.verify(plain_password, hashed_password)
+
+
+def hash_system_secret(secret: str) -> str:
+    """Hash a system account secret using argon2."""
+    return system_pwd_context.hash(secret)
+
+
+def verify_system_secret(plain_secret: str, hashed_secret: str) -> bool:
+    """Verify a system account secret against a hash."""
+    return system_pwd_context.verify(plain_secret, hashed_secret)
 
 
 def create_access_token(

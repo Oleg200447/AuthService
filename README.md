@@ -86,12 +86,30 @@ pip install -r requirements.txt
 ### 4. Run Database Migrations
 
 ```bash
+# Apply migrations to create database tables
 alembic upgrade head
 ```
 
-This creates the tables and seeds the 5 system accounts.
+This creates all the necessary database tables (users, system_accounts, pre_auth_sessions).
 
-### 5. Run the Service
+### 5. Seed System Accounts
+
+After running migrations, you need to seed the system accounts:
+
+```bash
+# Run the seeding script to create system accounts
+python scripts/seed_system_accounts.py
+```
+
+This script:
+- Creates 5 system accounts (system_1 through system_5)
+- Uses Argon2 for hashing secret keys (no 72-byte limit like bcrypt)
+- Is idempotent - can be run multiple times safely
+- Skips existing accounts automatically
+
+**Note**: Make sure your `.env` file contains all required `SYSTEM_X_SECRET` values before running the seeding script.
+
+### 6. Run the Service
 
 #### Development Mode:
 ```bash

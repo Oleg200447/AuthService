@@ -100,7 +100,7 @@ async def set_username(
     5. Send Kafka message
     6. Return JWT token
     """
-    logger.info(f"Setting username: {request.username}")
+    logger.info(f"Setting username: {request.username},{authorization}")
     
     # Step 1: Validate pre-auth token
     pre_auth = await get_pre_auth_session(authorization, db)

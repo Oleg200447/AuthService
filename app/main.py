@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.core.kafka_producer import kafka_producer
+from app.core.seed import seed_system_accounts
 from app.api import auth_router, onboarding_router, system_router
 
 # Configure logging
@@ -25,6 +26,11 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting Auth Service...")
     await kafka_producer.start()
+    
+    # Seed system accounts
+    logger.info("Seeding system accounts...")
+    await seed_system_accounts()
+    
     logger.info("Auth Service started successfully")
     
     yield
